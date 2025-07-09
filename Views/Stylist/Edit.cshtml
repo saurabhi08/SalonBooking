@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Edit Stylist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h2 class="mb-4 text-center">@ViewData["Title"]</h2>
+            <form method="post" asp-action="Edit">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="StylistId" value="@Model.StylistId" />
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="Name" value="@Model.Name" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Specialty</label>
+                    <input type="text" class="form-control" name="Specialty" value="@Model.Specialty" required />
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-dark">Update</button>
+                    <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 

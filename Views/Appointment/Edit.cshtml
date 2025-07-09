@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Edit Appointment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h2 class="mb-4 text-center">@ViewData["Title"]</h2>
+            <form method="post" asp-action="Edit">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="AppointmentId" value="@Model.AppointmentId" />
+                <div class="mb-3">
+                    <label class="form-label">Date</label>
+                    <input type="datetime-local" class="form-control" name="Date" value="@Model.Date.ToString("yyyy-MM-ddTHH:mm")" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Customer</label>
+                    <select class="form-control" name="CustomerId" required>
+                        <option value="">Select Customer</option>
+                        @foreach (var customer in ViewBag.Customers)
+                        {
+                            if (customer.CustomerId == Model.CustomerId)
+                            {
+                                <option value="@customer.CustomerId" selected>@customer.Name - @customer.Email</option>
+                            }
+                            else
+                            {
+                                <option value="@customer.CustomerId">@customer.Name - @customer.Email</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Stylist</label>
+                    <select class="form-control" name="StylistId" required>
+                        <option value="">Select Stylist</option>
+                        @foreach (var stylist in ViewBag.Stylists)
+                        {
+                            if (stylist.StylistId == Model.StylistId)
+                            {
+                                <option value="@stylist.StylistId" selected>@stylist.Name - @stylist.Specialty</option>
+                            }
+                            else
+                            {
+                                <option value="@stylist.StylistId">@stylist.Name - @stylist.Specialty</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Service</label>
+                    <select class="form-control" name="ServiceId" required>
+                        <option value="">Select Service</option>
+                        @foreach (var service in ViewBag.Services)
+                        {
+                            if (service.ServiceId == Model.ServiceId)
+                            {
+                                <option value="@service.ServiceId" selected>@service.Name - $@service.Price</option>
+                            }
+                            else
+                            {
+                                <option value="@service.ServiceId">@service.Name - $@service.Price</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-dark">Update</button>
+                    <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 
